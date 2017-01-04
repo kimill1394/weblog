@@ -9,10 +9,12 @@ class View {
     $this->_initialValue = $initialValue;
   }
 
-  public function setPageTitle($name, $value) { // 레이아웃 페이지에 제목으로 보낼 데이터 설정
+  /* 레이아웃 페이지에 제목으로 보낼 데이터 설정 */
+  public function setPageTitle($name, $value) {
     $this->_passValues[$name] = $value;
   }
 
+  /* View.render() 실행 후 결과값 가공 */
   public function render($filename, $parameters=array(), $template=false) {
     $view = $this->_baseURL.'/'.$filename.'.php';
     extract(array_merge($this->_initialValue, $parameters));

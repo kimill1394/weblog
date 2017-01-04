@@ -11,6 +11,7 @@
     const PROTOCOL = 'http://';
     const ACTION = 'Action';
 
+    /* 생성자, 컨트롤러 객체 초기화! */
     public function __construct($application) {
       $this->_controller = strtolower(substr(get_class($this), 0, -10)); // controller이름을 소문자로 변환해 저장
       $this->_application = $application;
@@ -20,6 +21,7 @@
       $this->_connect_model = $application->getConnectModelObject();
     }
 
+    /* 액션 실행하고 실행 결과 반환 */
     public function dispatch($action, $params = array()) { // action: 액션이름, params: Routing 정보
       $this->_action = $action;
       $action_method = $action.self::ACTION; // '__Action';
@@ -35,7 +37,8 @@
       throw new FileNotFindException('FILE NOT FOUND'.$this->_controller.'/'.$this->_action);
     }
 
-    protected function isAuthentication($action) { // == 인증이 필요한가?
+    /* 인증이 필요한가? */
+    protected function isAuthentication($action) {
       if($this->_authentication === true || (is_array($this->_authentication)) && (in_array($action, $this->_authentication))
         return true;
         // 전역적으로 인증이 필요한 컨트롤러) || 일부 인증이 필요하고 && 해당 액션이 그 안에 포함된 경우 true
